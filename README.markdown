@@ -5,10 +5,11 @@ Illgol: Grand Mal
 groundbreaking-historic-hey-yowza *ILLGOL* family of programming
 languages:
 
-* **ILLGOL**, the first programming language EVER to be introduced by a
-  superheroine (in prose; later revealed to be Release Notes Girl);
-* **Illgola-2**, the first programming language EVER to be shipped
-  with an image of Release Notes Girl;
+* **ILLGOL**, the first programming language EVER to be, in actuality, a
+  communicable disease cleverly disguised as a programming language;
+* **Illgola-2**, the first programming language EVER to have its release
+  notes introduced, in prose, by a superheroine (later revealed to be
+  Release Notes Girl);
 * **Illberon (ILLGOL 3)**, the first programming language EVER to have
   its release notes in the form of a comic strip; and
 * **Open Sores Illgol##**, the first programming language EVER to be
@@ -17,7 +18,7 @@ languages:
 Illgol: Grand Mal is also rumoured to be the *hyperincubator* for the next
 generation of ILLGOL technology, **Illglr**.
 
-LICE NSE
+LICE-NSE
 --------
 
 The contents of the Illgol: Grand Mal distribution are octuply-licensed.
