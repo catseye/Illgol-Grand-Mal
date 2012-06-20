@@ -1,0 +1,312 @@
+NB i2stuff.ill
+NB (c)2001 Cat's Eye Technologies.
+NB All rights reserved.  All liability disclaimed.
+NB See the file COPING for license information.
+
+NB New features found in Illgola-2!
+
+NB 'then' is now an optional syntactic sugarcoating in an 'if'.
+NB it is also allowable in the new 'should' structure, which
+NB adds assignment-driven assignments (kind of like events.)
+
+NB Works most places a variable can be changed, including
+NB plain assignment, the seed for rnd(), ++ and --, in tty
+NB and in file(), hedge, etc.
+
+10 * q = 1; * qq = 0;
+20 should q > 5 { print "q is now ", str(q), EoL; };
+24 print "Hey, check this out!", EoL;
+30 while q < 10
+   {
+     print "Happy fun loop.", EoL;
+     qq = q++;
+   };
+
+DEFINE cls = FMF {CLRSCR}
+
+   in tty q; cls;
+
+   for q = 1 to 10
+   {
+     print "Happy fun loop.", EoL;
+   };
+
+   in tty q; cls;
+
+NB Anyone who has worked in Prolog knows how valuable a 'cut'
+NB can be.  And if they're useful in a constraint-based
+NB language such as Prolog, they must be able to do wonders
+NB in an imperative language like Illgola-2... right?
+
+38 print EoL, EoL;
+40 * func = {
+              print "Hello, ";
+              cut;
+              print "world!", EoL;
+            };
+
+50 do func; do func; do func;
+
+NB You should not use 'cut' in a function which returns a value
+NB (always, always use 'yield' in that case.)
+
+NB For a cut that never succeeds, use 'go back' (which is actually
+NB a complement to 'go to' which only half-works.)
+
+NB And what would 'cut' be without it's counterpart, 'paste'?
+NB A paste works like a reverse cut.  It fails the first time it
+NB is run, but succeeds on all successive times.
+
+68 print EoL, EoL;
+70 func = {
+            print "Hello, ";
+            paste;
+            print "world!", EoL;
+          };
+
+80 do func; do func; do func;
+
+NB Also, what imperative language would be complete without
+NB a way to roll back the updatable store?
+
+100 print EoL, EoL;
+110 * x = 1; * y = 1;
+120 print "x is ", str(x), EoL;
+130 hedge x
+    {
+      x = 5;
+      print "x is ", str(x), EoL;
+    };
+140 print "x is ", str(x), EoL;
+
+    q = 20; hedge q { q = 7; };
+
+NB And type checking.  Ya gotta have type checking.  Some form of
+NB type checking.  Illgola-2 has a limited form of static type checking
+NB with the TYPE = pseudo-assignment and the STRONG = assignment.
+
+NB First, let's demonstrate how to include files, such as the following
+NB which defines the types we're going to use here.
+
+INCLUDE = prj\sample.inc
+
+* MyVar = 80;
+MyVar TYPE = Vanilla;
+
+* YourVar = 81;
+YourVar TYPE = Chocolate;
+
+* SomeOtherVar = 82;
+SomeOtherVar TYPE = Vanilla;
+
+   150 MyVar = YourVar;               NB won't generate an error
+NB 170 MyVar STRONG = YourVar;        NB will generate an error
+   160 MyVar STRONG = SomeOtherVar;   NB will not generate an error
+
+NB That's about as limited as you can get without not having any.
+
+NB And what of ILLGOL's new I/O facilities?  Well, let's say you can
+NB do a non-blocking input with the 'poll tty' function.
+
+200 * c = 0; * m = 0;
+    while m <> 27
+    {
+      FMF {PAUSE 1};
+      border c++;
+      if c > 15 { c = 0; };
+      if poll tty then
+      {
+        in tty m;
+        out tty m;
+      };
+    };
+    border 0;
+
+NB Right. File access commands.  Any language worth it's salt has to
+NB be able to access external files these days.  Disk files, no less.
+
+  * f = 0;
+
+  open(f) = "ILLGOL.TXT";    NB read a file.
+  in file(f) c;
+  while ! eof
+  {
+    out tty c;
+    in file(f) c;
+  };
+  close(f) = 1;
+
+  create(f) = "FOO.TXT";     NB write a file.
+
+  c = 0;
+  flush tty;
+  while c <> 27
+  {
+    in tty c;
+    if c = 13
+    {
+      out tty 13; out tty 10;
+      out file(f) 13; out file(f) 10;
+    } else
+    if c = 12                NB seek to beginning of file on ^L
+    {
+      cls;
+      seek(f by 1) = 0;
+      flush(f) = 1;
+    } else
+    if c = 11                NB seek to end of file on ^K
+    {
+      eof(f) = 1;
+      flush(f) = 1;
+    } else
+    if c = 1                 NB report file position on ^A
+    {
+      print EoL, str(gpos(f,0)), EoL;
+    } else
+    if c <> 27
+    {
+      out tty c;
+      out file(f) c;
+      flush(f) = 1;
+    }
+  };
+
+  close(f) = 1;
+
+NB If you assign a zero to a flush(), eof(), or close(), it'll act
+NB like 'go back'.  Generally not very useful, maybe if there's some
+NB need for "Either flush the file and continue, or abort this
+NB subroutine," in which case saying something like
+NB   flush(f) = ContinueFlag;
+NB might be reasonable, I guess.
+
+NB eof is a global pseudo-variable which will not equal zero if
+NB the most recent in file encountered the end of the file.  When
+NB read, eof is reset to 0.
+
+NB Do not confuse the eof pseudo-variable with the eof(file) = 1
+NB syntax, which actively seeks to the end of the file!
+
+  * jerry = {
+              print "Hello, I'm Jerry the Subroutine.", EoL;
+              go back;
+            };
+
+  * sammy = {
+              print "Welcome to Sammy the Subroutine.", EoL;
+              do jerry;
+              print "Back to Sammy.", EoL;
+              go to jerry;
+              print "This never happens!", EoL;
+            };
+
+  do sammy;
+	
+  q = 6;
+  go check q;
+  go check q;
+  go check q;
+
+NB oh yeah, local variables.  Well, like strong types, Illgola-2 supports
+NB only the most limited version of this.  You can tell Illgola-2 to
+NB forget a variable declaration, in essence making that symbol local
+NB to only the code between where it is first declared and subsequently
+NB forgotten.
+
+  FORGET sammy;
+  FORGET jerry;
+
+NB sammy = 1;  NB would cause an error
+
+NB Decided that, while Full Moon Fever "compatibility" mode is nice,
+NB it would be even nicer to have some ILLGOL-level access to the same
+NB functionality.  And what better approach to take than the one used
+NB by Business BASIC - the @() clause in the PRINT statement!
+
+600 print @(1,1), "*************", @(12,40), "()";
+
+ * xr = 0;
+ * xg = 0;
+ * xb = 0;
+
+ for c = 0 to 31
+ {
+   in dac c red xr;
+   in dac c green xg;
+   in dac c blue xb;
+
+   print "c=", str(c), ": R=", str(xr), ", G=",
+               str(xg), " B=", str(xb), EoL;
+
+NB The following line has some problems
+NB   out dac c xb xr xg;
+
+ };
+
+NB  Inline machine code:
+
+  FORGET func;
+  * func = INLINE {144};
+
+  do func;
+  in tty c;
+  cls;
+
+NB  Modules.  Dynamic inclusion:
+
+  * example1 = 0;
+
+NB The preprocessor will convert the following
+NB line into the following sequence of operations.
+
+  bload example1 = "mod\example2.com";
+
+NB  * objf = 0;
+NB  * objl = 0;
+NB  open(objf) = "MOD\EXAMPLE1.COM";   NB read module.
+NB  eof(objf) = 1;                     NB seek to end.
+NB  objl = gpos(objf,0);               NB get length.
+NB  example1 = * (objl);               NB alloc enough mem.
+NB  seek(objf by 1) = 0;               NB seek to beginning.
+NB  in chunk(objf, objl) example1^;    NB read a chunk
+NB  close(objf) = 1;                   NB close module
+
+  do example1("Hello, world!");
+
+NB  Static inclusion: to be handled by the preprocessor.
+
+  * example2 = 
+  BLOAD = mod\example1.com
+  ;
+
+  do example2("Hello, world!");
+
+NB  Now, the Ypush() and Ypop() functions in action...
+NB  These are not truly recommended for everyday use,
+NB  as they share the system stack (denoted by the
+NB  capital "Y") where Illgola-2 does the majority of
+NB  it's value manipulation, and injudicious use of
+NB  them can cause wondrous icky interaction with other
+NB  stuff going on.
+
+  print "OK, ", str(Ypush(123)), EoL;
+  print "So, ", str(Ypush(456,7)), EoL;
+  print "And, ", str(Ypop()), EoL;
+  print "But, ", str(Ypop()), EoL;
+
+NB  Probably better overall to use the PUSH and POP
+NB  assignments (don't let the all-caps confuse you,
+NB  they're not pragmata, they're actual commands.)
+
+  * ary * 20 = 2;
+
+  PUSH ary = 14;
+  PUSH ary = 12;
+  PUSH ary = 7;
+
+  * q = 0;
+  POP q = ary;  print str(q), EoL;
+  POP q = ary;  print str(q), EoL;
+  POP q = ary;  print str(q), EoL;
+
+FIN

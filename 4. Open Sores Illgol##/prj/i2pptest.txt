@@ -1,0 +1,16 @@
+NB Test of the preprocessor ONLY.
+NB (c)2001 Cat's Eye Technologies.
+NB All rights reserved.  All liability disclaimed.
+NB See the file COPING for license information.
+
+DEFINE test      = bar
+DEFINE foo(x)    = "The x is good today!"
+DEFINE bar(x,y)  = "But the x with y is even better."
+
+DEFINE recurse(CDR=x) = Hello, recurse(x)!
+
+foo(duck soup);
+test(venison,white wine sauce);
+
+"recurse(world)";
+

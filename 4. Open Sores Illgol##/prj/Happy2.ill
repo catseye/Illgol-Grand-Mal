@@ -1,0 +1,233 @@
+NB Happy2.script
+NB (c)2001 Cat's Eye Technologies.
+NB All rights reserved.  All liability disclaimed.
+NB See the file COPING for license information.
+
+FMF {
+CLRSCR
+GO 1 1
+PRINT "----------------------------------------------------------------------------"
+GO 1 4
+PRINT "----------------------------------------------------------------------------"
+GO 1 20
+PRINT "----------------------------------------------------------------------------"
+GO 1 15
+DO 5
+    PRINT "| | | | |" LF LF LF LF LF LF LF LF LF DN;
+UP RT RT RT RT RT RT RT PRINT "O"
+GO 1 2 CLREOL CENTRE "Last we saw Mr. Happy, he was in prison for blowing away his dad." 2
+GO 1 3 CLREOL CENTRE "Since then, not a whole lot has changed." 3
+GO 1 19
+PAUSE 70
+GO 10 18
+PRINT "/"
+GO 11 17
+PRINT "God this is boring."
+PAUSE 70
+GO 10 18
+PRINT " "
+GO 11 17 CLREOL
+PAUSE 70
+
+GO 1 2 CLREOL CENTRE "Enter... the Stupid Guard." 2
+GO 1 3 CLREOL
+PAUSE 70
+
+GO 76 19
+PRINT "0"
+PAUSE 20
+DO 20
+    LF PRINT " " LF LF PRINT "0" PAUSE 5;
+
+PAUSE 70
+GO 10 18
+PRINT "/"
+GO 11 17
+PRINT "Hey, you!  Stupid Guard!"
+PAUSE 70
+GO 55 18
+PRINT "\"
+GO 50 17
+PRINT "What?"
+PAUSE 70
+
+GO 11 16
+PRINT "Um, I need to"
+GO 11 17
+PRINT "borrow your keys.        "
+PAUSE 70
+
+GO 46 17
+PRINT "What for?"
+PAUSE 70
+
+GO 11 15
+PRINT "Um, I've got a bit of steak"
+GO 11 16
+PRINT "caught between my teeth and I"
+GO 11 17
+PRINT "don't have a toothpick."
+PAUSE 200
+
+GO 45 17
+PRINT "Oh.. okay."
+PAUSE 70
+
+GO 11 15 CLREOL
+GO 11 16 CLREOL
+GO 11 17 PRINT "Thanks." CLREOL
+GO 55 18
+PRINT " "
+GO 54 19
+DO 45
+    PRINT " " LF LF PRINT "O" PAUSE 3;
+GO 11 17 CLREOL
+GO 10 18 PRINT " "
+PAUSE 70
+GO 12 18
+PRINT "/"
+GO 13 17
+PRINT "Here you go."
+PAUSE 70
+GO 13 17 CLREOL
+GO 12 18
+PRINT " "
+GO 10 19
+PRINT "'"
+PAUSE 30
+LF PRINT " "
+GO 10 19
+DO 20
+    PRINT " +" LF PAUSE 3;
+PAUSE 50
+GO 11 17
+PRINT "*click*"
+PAUSE 50
+GO 11 17 CLREOL
+GO 9 19
+PRINT " " PAUSE 5
+GO 9 18
+PRINT " " PAUSE 5
+GO 9 17
+PRINT " " PAUSE 5
+PAUSE 30
+GO 11 17
+PRINT "I'm FREE!! I'm FREE!!"
+PAUSE 70
+GO 11 17 CLREOL
+GO 8 19
+DO 18
+    PRINT " O" LF;
+PRINT " " UP PRINT "O" LF
+PRINT " " UP PRINT "O" LF
+PRINT " O" LF
+PRINT " O" LF
+PRINT " " DN PRINT "O"
+UP UP UP LF LF LF LF PRINT "*boing*" LF LF LF LF DN DN DN
+PRINT " " UP PRINT "O" LF
+PRINT " " UP PRINT "O" LF
+PRINT " O" LF
+PRINT " O" LF
+PRINT " " DN PRINT "O" LF
+PRINT " " DN PRINT "O" LF
+PRINT " " DN PRINT "O" LF
+GO 28 16 CLREOL
+GO 29 18 PRINT "?#*!&"
+GO 36 19
+DO 7
+    PRINT " O" UP LF PRINT "he" DN LF LF PRINT " O" LF;
+DO 26
+    PRINT " O" LF;
+PAUSE 20
+GO 1 15
+DO 5
+    CLREOL DN;
+GO 50 20
+PRINT "          "
+GO 49 21
+PRINT "|          |"
+GO 49 22
+PRINT "|          |"
+GO 1 2 CLREOL CENTRE "Mr. Happy has made a death-defying escape from the prison." 2
+GO 1 3 CLREOL CENTRE "He is very joyful with his new-found freedom." 3
+PAUSE 150
+GO 1 19
+PRINT "O"
+GO 1 19
+DO 20
+   PRINT " O" LF;
+GO 1 2 CLREOL CENTRE "Unfortunately, he is also very stupid." 2
+GO 1 3 CLREOL
+PAUSE 20
+GO 1 19
+DO 28
+   PRINT " O" LF;
+GO 48 17
+PRINT "Ah, shit!!"
+GO 49 19
+PRINT " O" LF
+PRINT " " DN PRINT "O" LF
+PRINT " " DN PRINT "O" LF
+PRINT " " DN PRINT "O" LF
+PRINT " "
+GO 1 17 CLREOL
+PAUSE 100
+GO 1 20 CLREOL
+GO 1 21 CLREOL
+GO 1 22 CLREOL
+
+GO 1 2 CLREOL CENTRE "Mr. Happy has just fallen down a well." 2
+GO 1 3 CLREOL
+GO 42 6
+DO 15
+    PRINT "|          |" LF LF LF LF LF LF LF LF LF LF LF LF DN;
+GO 47 6
+PRINT "O" LF
+DO 5
+    PRINT " " DN PRINT "O" LF;
+GO 56 10
+PRINT "Ouch!"
+GO 52 11
+PRINT " "
+GO 52 10
+DO 9
+    PRINT " " DN LF LF PRINT "O" LF;
+GO 35 18
+PRINT "Ouch!"
+GO 43 19
+DO 3
+    PRINT " " DN PRINT "O" LF;
+PAUSE 70
+GO 1 5 CLREOD
+GO 1 2 CLREOL CENTRE "Mr. Happy is still falling down a well." 2
+GO 1 3 CLREOL
+GO 42 6
+DO 10
+    PRINT "|          |" LF LF LF LF LF LF LF LF LF LF LF LF DN;
+PRINT "|^^^^^^^^^^|" LF LF LF LF LF LF LF LF LF LF LF LF DN
+DO 3
+    PRINT "|          |" LF LF LF LF LF LF LF LF LF LF LF LF DN;
+PRINT     "|__________|"
+GO 47 6
+PRINT "O" LF
+DO 5
+    PRINT " " DN PRINT "O" LF;
+GO 56 10
+PRINT "Ack!"
+GO 52 11
+PRINT " "
+GO 52 10
+DO 5
+    PRINT " " DN LF LF PRINT "O" LF;
+LF PRINT "\|/" LF LF LF LF UP PRINT "splash"
+PAUSE 20
+LF LF LF LF LF LF PRINT "      " LF LF LF LF LF LF DN PRINT "      "
+DN LF LF LF LF PRINT "O" PAUSE 10 LF PRINT "^" DN LF
+PRINT "O" PAUSE 20 LF PRINT " " DN LF
+PRINT "O" PAUSE 30 LF PRINT " " DN LF
+PRINT "O" PAUSE 40 LF PRINT " " DN LF
+PRINT "O" PAUSE 100
+UP PRINT "/" UP PRINT "Blub."
+PAUSE 600
+CLRSCR } ;
+FIN

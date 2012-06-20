@@ -1,0 +1,6 @@
+NB hello.ill
+NB (c)2001 Cat's Eye Technologies.
+NB All rights reserved.  All liability disclaimed.
+NB See the file COPING for license information.
+
+print "Hello, world!", EoL FIN

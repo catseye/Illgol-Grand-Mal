@@ -1,0 +1,13 @@
+NB Test of the preprocessor ONLY.
+
+DEFINE test      = bar
+DEFINE foo(x)    = "The x is good today!"
+DEFINE bar(x,y)  = "But the x with y is even better."
+
+DEFINE recurse(CDR=x) = Hello, recurse(x)!
+
+foo(duck soup);
+test(spam,white wine sauce);
+
+"recurse(world)";
+

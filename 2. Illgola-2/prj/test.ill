@@ -1,0 +1,137 @@
+CONST x = 0, y = 2;
+
+*coo = 0;
+
+*f = { out tty #(coo++); out tty #(coo--) };
+
+*z = 2;
+*a *4 = 0;
+a.x = 255;
+a.y = 32;
+*ptr = ^a + 2;
+while a.x >= 32
+{
+  while a.y <= 255
+  {
+    do f (a.x, a.y);
+    *foo = ptr^++
+  };
+  a[z] = 32;
+  a.x -= 1
+};
+
+*w = "Wrong!"; NB comment
+*r = "Right!";
+*a = 1;
+*b = 2;
+if a < b
+{
+  if b = a
+  {
+    print w
+  };
+  if b < a
+  {
+    print w
+  } else
+  {
+    print r
+  }
+} else
+{
+  print w
+};
+
+if ?a print r;
+if !(?a) print w;
+if ?(b-2) print w;
+if !(?(b-2)) print r;
+
+if a < b if b <> a print r;
+if b < a print w else print r;
+
+NB fixed-point arithmetic (such as it is) demo.
+
+   a = 0;
+   *char = 0;
+   while (char <> 27)
+   {
+     print sif(a); out tty 13; out tty 10;
+     in tty char;
+     a = a + 0.1;
+   };
+
+*char = 0;
+*r = 0;
+while (char <> 27)
+{
+  print sif(rnd(r)); out tty 13; out tty 10;
+  in tty char;
+};
+
+print str(fre(0));    out tty 13; out tty 10;
+print str(int(6.81)); out tty 13; out tty 10;
+
+*i = 0;  NB unfortunately required...
+
+for i = 33 to 43
+{
+  out tty i;
+};
+
+for i = 33 to 43 out tty i;
+
+a = 123;
+print str(a);
+out tty 13; out tty 10;
+print str(9999);
+out tty 13; out tty 10;
+print str(1);
+out tty 13; out tty 10;
+
+NB This is a comment
+
+10 print "And "
+         "so "
+         "it "
+         "begins...";
+
+20 *i = 0;
+
+30 *f = { print "Voila!"; out tty 13; out tty 10 };
+40 *g = { out tty i-- };
+
+50 do f; do f; do f;
+
+60 i = 34;
+70 do g; do g; do { out tty 13; out tty 10 };
+80 i = 255;
+90 do g until i = 65;
+
+*crlf = { out tty 13; out tty 10 };
+do crlf;
+
+*array *16 BYTE = 37;
+array.1    BYTE = 38;
+array.2    BYTE = 39;
+array.3    BYTE = 99;
+array.4    BYTE = 64;
+array.5    BYTE = 0;
+
+print ^array; do crlf;
+array.3         = 7000;
+print ^array; do crlf;
+array.1    BYTE = 7000;
+print ^array; do crlf;
+
+*s = "Fantastic!";
+print s; do crlf;
+s^ BYTE = 65;
+print s++; do crlf;
+array[2] = s--;
+array[2]^ BYTE = 99;
+print s; do crlf;
+
+print str(10 - 5), EoL;
+
+FIN

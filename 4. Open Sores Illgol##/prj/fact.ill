@@ -1,0 +1,14 @@
+NB fact.ill
+NB (c)2001 Cat's Eye Technologies.
+NB All rights reserved.  All liability disclaimed.
+NB See the file COPING for license information.
+
+*fact = { if #0 > 1 yield #0 * call fact(#0 - 1) else yield 1 };
+
+*a = 1;
+for a = 1 to 7
+{
+  print stu(call fact(a)), EoL;
+};
+
+FIN

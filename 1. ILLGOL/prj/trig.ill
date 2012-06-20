@@ -1,0 +1,9 @@
+*c = 0;
+*a = 0;
+while c <> 27
+{
+  print str(a), " ", str(cos(a)), " ", str(sin(a)), EoL;
+  in tty c;
+  a += 1;
+};
+FIN

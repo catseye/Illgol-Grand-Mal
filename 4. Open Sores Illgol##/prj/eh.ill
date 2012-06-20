@@ -1,0 +1,12 @@
+NB eh.ill
+NB (c)2001 Cat's Eye Technologies.
+NB All rights reserved.  All liability disclaimed.
+NB See the file COPING for license information.
+
+10 *f = { print str(#0), EoL };
+20 do f(1);
+30 don't f;
+40 do f(2);
+50 reinstate f;
+60 do f(3);
+FIN

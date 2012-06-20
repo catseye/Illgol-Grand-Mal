@@ -1,0 +1,21 @@
+NB hgr2.ill
+NB (c)2001 Cat's Eye Technologies.
+NB All rights reserved.  All liability disclaimed.
+NB See the file COPING for license information.
+
+hgr;
+*c=0; *j=0; *i=0; *x=0; *y=0;
+for j = 0 to 100
+{
+  for i = 0 to 255
+  {
+    x = (1000 + cos i) >> 5;
+    y = (1000 + sin i) >> 5;
+    hplot x + j, y + j, i + j;
+  }
+};
+
+while c <> 27 { in tty c };
+text;
+FIN
+

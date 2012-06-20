@@ -1,0 +1,25 @@
+NB i3stuff.ill
+NB (c)2001 Cat's Eye Technologies.
+NB All rights reserved.  All liability disclaimed.
+NB See the file COPING for license information.
+
+NB  Features planned (but never implemented) for Illgola-3.
+
+NB  Databases and data entry!
+
+BEGIN FIELDS = * customer
+  ID         = 2  @ 0 @{ yield #0 <> 0; } @(5, 10) @" Customer ID"
+  LastName   = 20                         @(6, 10) @"   Last Name"
+  FirstName  = 10                         @(7, 10) @"  First Name"
+  Phone      = 16                         @(8, 10) @"Phone Number"
+END FIELDS
+
+0200 data(customer) = "customer.idb";
+record(customer) = 0;
+in data customer;
+out form customer;
+in form customer;
+out data customer;
+close(customer) = 1;
+
+FIN

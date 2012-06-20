@@ -1,0 +1,26 @@
+NB alloc.ill
+NB (c)2001 Cat's Eye Technologies.
+NB All rights reserved.  All liability disclaimed.
+NB See the file COPING for license information.
+
+CONST val  = 0,
+      next = 2;
+
+*ListPtrC = (*4);
+ListPtrC^.val  = 3;
+ListPtrC^.next = 0;
+
+*ListPtrB = (*4);
+ListPtrB^.val  = 2;
+ListPtrB^.next = ListPtrC;
+
+*ListPtrA = (*4);
+ListPtrA^.val  = 1;
+ListPtrA^.next = ListPtrB;
+
+*L = 0; *char = 0;
+for L = ListPtrA link next
+{
+  print str(L^.val), EoL
+};
+FIN

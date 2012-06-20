@@ -1,0 +1,22 @@
+NB example Illgola-2 module #2
+NB (c)2001 Cat's Eye Technologies.
+NB All rights reserved.  All liability disclaimed.
+NB See the file COPING for license information.
+
+NB Warning!  Addresses of literals and globals in
+NB a module are probably munged.  In other words,
+NB the command "print "Hello"" inserted into the
+NB following module will not print "Hello" but rather
+NB some other string from the wrong address.
+
+NB Live with it!
+
+MODULE =
+{
+  out tty 34;
+  print #0;
+  out tty 34;
+  print EoL;
+}
+
+END MODULE

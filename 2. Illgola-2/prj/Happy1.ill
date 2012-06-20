@@ -1,0 +1,51 @@
+FMF{ CLRSCR
+GO 1 1
+PRINT "----------------------------------------------------------------------------"
+GO 1 3
+PRINT "----------------------------------------------------------------------------"
+GO 1 20
+PRINT "----------------------------------------------------------------------------"
+PAUSE 50
+GO 1 2 CLREOL GO 30 2 PRINT "Enter ... Mr. Happy."
+GO 1 19
+PAUSE 50
+PRINT "O" LF
+DO 20
+    PAUSE 5 PRINT " O" LF;
+PAUSE 50
+GO 22 18
+PRINT "/"
+GO 23 15
+PRINT "You know you can't even get a"
+GO 23 16
+PRINT "decent burger in this town for"
+GO 23 17
+PRINT "less than $2.00.  Pisses me off."
+PAUSE 250
+GO 23 15 CLREOL
+GO 23 16 CLREOL
+GO 23 17 CLREOL
+GO 22 18 PRINT " "
+PAUSE 20
+GO 1 2 CLREOL GO 27 2 PRINT "E A R T H Q U A K E !!!!!!!"
+PAUSE 30
+GO 1 4
+DO 20
+   PAUSE 1 INSLIN PAUSE 1 DELLIN;
+
+GO 20 18
+DO 10
+    PAUSE 2 PRINT "? ?" LF LF LF PAUSE 2 PRINT " ? " LF LF LF;
+PRINT "   "
+PAUSE 50
+
+GO 21 19
+DO 20
+    PRINT " " LF LF PRINT "O" LF PAUSE 1;
+GO 1 19
+PRINT " "
+PAUSE 50
+GO 1 2 CLREOL GO 31 2 PRINT "Exit... Mr. Happy."
+PAUSE 150
+CLRSCR };
+FIN

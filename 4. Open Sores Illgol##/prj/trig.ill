@@ -1,0 +1,14 @@
+NB trig.ill
+NB (c)2001 Cat's Eye Technologies.
+NB All rights reserved.  All liability disclaimed.
+NB See the file COPING for license information.
+
+*c = 0;
+*a = 0;
+while c <> 27
+{
+  print str(a), " ", str(cos(a)), " ", str(sin(a)), EoL;
+  in tty c;
+  a += 1;
+};
+FIN

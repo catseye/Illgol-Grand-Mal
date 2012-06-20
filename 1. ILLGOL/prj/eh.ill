@@ -1,0 +1,7 @@
+10 *f = { print str(#0), EoL };
+20 do f(1);
+30 don't f;
+40 do f(2);
+50 reinstate f;
+60 do f(3);
+FIN

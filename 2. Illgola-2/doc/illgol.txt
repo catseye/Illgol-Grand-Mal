@@ -1,0 +1,219 @@
+                                I L L G O L
+                                -----------
+                           A sick, sick language
+                           ---------------------
+
+Introduction to ILLGOL
+----------------------
+
+ILLGOL is sick.  Sick, I tell you.
+
+Now that we've got that out of the way and you can't say I didn't
+blame you, you have two choices: you can either delete this file
+archive and find something else to do, or you can continue reading.
+
+So you've decided to continue reading.  Well, I have some bad news.
+ILLGOL is highly contagious, so now you're sick too!  So you might
+as well have a look at some of the example sources to get a feel
+for what you're getting into.
+
+
+What You're Now Sick With
+-------------------------
+
+ILLGOL is a familiar-looking linear compiled language.  It is a free
+form language except for comments (which begin with the token "NB" and
+continue until the end of the current line.)  Tokens and user-defined
+identifiers are case-sensitive.
+
+An ILLGOL program consists of a sequence of assignments, delimited
+by ";" tokens, and the entire sequence terminated by the "FIN" token.
+A line number may optionally be included before each assignment.  In
+spite of this, ILLGOL is a block-structured language, using the "{" and
+"}" tokens to delimit blocks.
+
+An assignment may take a special form where the destination (the lvalue)
+may be missing, in which case the assignment resembles a command.
+These forms are:
+
+  if <expression> <block>
+  if <expression> <block> else <block>
+  while <expression> <block>
+  for <variable> = <expression> to <expression> <block>
+  for <variable> = <pointer> link <offset> <block>
+  do <function>
+  do <function>(<arguments>)
+  do <function>(<arguments>) until <expression>
+  do <function>(<arguments>) discard
+  do <function>(<arguments>) discard until <expression>
+  don't <function>
+  reinstate <function>
+
+Plus, there are some I/O commands:
+
+  text
+  print <expression-list>
+  in tty <variable>
+  out tty <expression>
+
+  hgr
+  hplot <expression>, <expression>, <expression>
+  border <expression>
+
+Expressions have the usual precedence (well, mostly.)  All values are
+16-bit, and we call this word-based.  The lower byte of a word can be
+extracted exclusively during an assignment by preceding the "=" token
+with the "BYTE" token. This allows safe construction of arrays of
+bytes.
+
+To create an array (or in fact allocate any larger-than-single-word
+memory for any occasion) you must use the unary "*" operator on an
+expression; this is somewhat analagous to C's malloc function.  The
+expression should evaluate to the desired number of bytes to allocate.
+
+(This situation is paralleled with variable declarations.  The first
+time a variable is used, it should be declared in a similar manner,
+by preceding it with a unary "*".)
+
+The result of the allocation expression is a pointer to the memory thus
+allocated.  You can use the following dereferencing tools to get at
+that memory, both in the source and destination of an assignment:
+
+  variable^             word pointed to by variable
+  variable[expression]  word pointed to by (variable plus expression)
+  variable.constant     word pointed to by (variable plus constant)
+
+Note that 'constant' is just a constant offset and does not care what
+'type' the variable is.  All of these dereferencing tools can be
+appended in an indefinately long chain (X[Y].Z^[W]^^.Q etc.)
+
+In the source of an assignment, the token "^" can be used as a unary
+operator on a variable, to return that variable's address (a pointer
+to that variable.)
+
+In addition to a plain assignment which uses the "=" operator,
+assignments involving the C-like "+=" and "-=" operators are also
+supported.  C-like postincrementation "++" and postdecrementation "--"
+are also supported, but preincrementation and predecrementation are
+not.
+
+Fixed-point arithmetic is supported with various built-in functions
+(fix, cos, int, sin, sif) and variations on the standard integer "*"
+and "/" operators.  By trailing the operator with a "." as in "*." or
+"/.", you indicate that you want the result corrected for fixed-point.
+Since all values are word-based, a fixed-point value contains eight
+bits left of the radix point and eight bits to the right, able to
+record positive values from 0 to 127_255/256 in increments of 1/256
+(and probably negative values in a similar range.)
+
+Functions can be defined by means of lambda blocks; that is, the
+source of an assignment is given as a program block.  The destination
+of the assignment is assigned a pointer to the machine function
+implementing that program block.  That function can be used in a 
+"do" assignment (if it does not use "yield" to return a value, or if
+the "discard" form of "do" is used) or called with the "call"
+operator (if it does use "yield" to return a value.)
+
+
+Notes on How to Use the Compiler
+--------------------------------
+
+The ILLGOL compiler translates ILLGOL programs into MS-DOS .COM
+files.  Syntactical errors will be caught but even a single error
+will kill the compile cycle.  Very little by way of array bounds
+checking etc is done, though.  It's a very stupid little compiler.
+The command line syntax is:
+
+  ILLGOL illgol-file [com-file]
+
+If com-file is omitted, OUT.COM will be written.
+
+
+EBNF grammar (approximate)
+--------------------------
+
+ILLGOL      ::= Assignments "FIN" .
+Assignments ::= Assignment {";" Assignment} .
+Assignment  ::= [number] name Deref ["BYTE"] ("=" | "+=" | "-=") BoolExpr
+              | "CONST" name "=" number {"," name "=" number}
+              | "while" BoolExpr Block
+              | "for" name "=" BoolExpr "to" BoolExpr Block
+              | "if" BoolExpr Block ["else" Block]
+              | "print" (BoolExpr | "EoL") {"," (BoolExpr | "EoL")}
+              | "do" BoolExpr ["(" BoolExpr {"," BoolExpr} ")"] ["discard"] ["until" BoolExpr]
+              | "hgr" | "text" | "hplot" BoolExpr "," BoolExpr "," BoolExpr
+BoolExpr    ::= NegExpr {"&" NegExpr | "|" NegExpr | "~" NegExpr} .
+NegExpr     ::= ["!"] CompExpr .                                       *I don't trust this*
+CompExpr    ::= AddExpr {"=" AddExpr | "!=" AddExpr | ">" AddExpr |
+                         ">=" AddExpr | "<" AddExpr | "<=" AddExpr} .
+AddExpr     ::= Term {"+" Term | "-" Term} .
+Term        ::= Factor {"*" ["."] Factor | "/" ["."] Factor} .
+Factor      ::= Primitive {"<<" Primitive | ">>" Primitive} .
+Primitive   ::= "^" name
+              | name Deref ["++"|"--"]
+              | number | string {string}
+              | "{" ["*" name {"," name} ";"] Assignments "}"
+              | "(" BoolExpr ")"              
+              | "*" BoolExpr .
+              | "abs" BoolExpr     & 0x7fff
+              | "asc" BoolExpr     & 0x007f
+              | "fix" BoolExpr     << 8
+              | "cos" BoolExpr     table lookup
+              | "fre" BoolExpr     0 - heapptr
+              | "int" BoolExpr     >> 8
+              | "rnd" BoolExpr     sequential hashing method
+              | "sin" BoolExpr     table lookup
+              | "str" BoolExpr     convert word to string of ASCII decimals
+              | "stu" BoolExpr     convert unsigned word to ASCII decimal
+              | "sif" BoolExpr     convert FIXED to string of ASCII decimals
+Member      ::= number | const_name .
+Block       ::= "{" Assignments "}" | Assignment .
+Deref       ::= {"." Member | "[" AddExpr "]" | "^"} .
+
+
+Further Exploration
+-------------------
+
+This document doesn't cover everything.  You'll have to discover the
+rest by experimenting with the compiler.
+
+eh.ill demonstrates what "don't" and "reinstate" do.
+alloc.ill demonstrates allocation and the "for link" loop.
+fact.ill demonstrates recursion, function calls & arguments.
+happy1.ill demonstrates Full Moon Fever "compatibility mode".
+fancy.ill demonstrates "border" and
+          demonstrates using FMF {...} within a larger program.
+hgr.ill demonstrates "hplot" et al.
+
+
+What the Critics have to Say about ILLGOL
+-----------------------------------------
+
+"ILLGOL is more powerful than BASIC because it's a compiled language."
+  -- Name withheld by request
+
+"ILLGOL rocks!  Not as a programming language, though, only as plant food."
+  -- Name withheld by request
+
+"You can write all your FORTRAN code in ILLGOL."
+  -- Name withheld by request
+
+"Programming in ILLGOL helps drown out the voices in my head."
+  -- Name withheld by request
+
+"ILLGOL uses the revolutionary 'imperative' paradigm, which is
+ preferred by four out of five programmers."
+  -- Name withheld by request
+
+"Wow!  I can't believe what a fast language ILLGOL is."
+  -- Name withheld by request
+
+"ILLGOL is better documented than the software we use at work.
+ No, seriously though.  It is."
+  -- Name withheld by request
+
+"I haven't killed anyone at ALL since I started programming in ILLGOL!"
+  -- Name withheld by request
+
+"Screw Haskell!  I'm using ILLGOL for my next project!"
+  -- Name withheld by request

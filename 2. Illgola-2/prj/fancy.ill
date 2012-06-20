@@ -1,0 +1,18 @@
+*x = 0;
+*y = 0;
+
+for x = 0 to 79
+  for y = 0 to 12
+  {
+    border x;
+    FMF {GO x y};
+    if ((x * y) <> 7)
+    {
+      out tty (x*y)
+    } else
+    {
+      out tty 32
+    }
+  };
+
+FIN
