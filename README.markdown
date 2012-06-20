@@ -23,3 +23,8 @@ LICE NSE
 The contents of the Illgol: Grand Mal distribution are octuply-licensed.
 See the file COPING for details.
 
+Our Commitment to Sensible Organization and Historical Accuracy...
+------------------------------------------------------------------
+
+...is epic.  Expect certain revisions in this repo to be tagged, because
+repos often contain tags, you know.
